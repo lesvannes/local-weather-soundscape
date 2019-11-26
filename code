@@ -72,59 +72,59 @@ location = str(location.firstChild.data)
 # Matches the corresponding sounds to the local weather collected above, then concatenates that mix of sounds into a single URL.
 
 if val_wind == "windy" and val_temp == "warm":
-  wind_stems, wind_volumes = "~BERBER0~JAPANGARDEN1~MEADOW8", "303030"
+  wind_stems, wind_volumes = "~BERBER0~JAPANGARDEN1~MEADOW8", "303030" #warm wind
 elif val_wind == "windy" and val_temp == "chilly":
-  wind_stems, wind_volumes = "~SLEDDOGS0~FERRYBOAT3~SAILBOAT4", "303030"
+  wind_stems, wind_volumes = "~SLEDDOGS0~FERRYBOAT3~SAILBOAT4", "303030" #cold wind
 else:
   wind_stems, wind_volumes = "", ""
 
 if val_weather == "snowy":
-  precip_stems, precip_volumes = "~FOREST9~WOLVES9~POLAREXPEDITION9", "303030"
+  precip_stems, precip_volumes = "~FOREST9~WOLVES9~POLAREXPEDITION9", "303030" #snow
 elif val_weather == "rainy" and val_temp == "warm":
-  precip_stems, precip_volumes = "~THUNDER5~RAINYRIVERBANK5~RAIN35", "303030"
+  precip_stems, precip_volumes = "~THUNDER5~RAINYRIVERBANK5~RAIN35", "303030" #warm rain
 elif val_weather == "rainy" and val_temp == "chilly":
-  precip_stems, precip_volumes = "~SAILBOAT20~ATSEA8~AUTUMNWALK8", "303030"
+  precip_stems, precip_volumes = "~SAILBOAT20~ATSEA8~AUTUMNWALK8", "303030" #cold rain
 else:
   precip_stems, precip_volumes = "", ""
 
 if val_season == "winter" and val_time == "day":
-  season_stems, season_volumes = "POLAREXPEDITION0~WINTER2~AUTUMNWALK5~FOREST27", "30303030"
+  season_stems, season_volumes = "POLAREXPEDITION0~WINTER2~AUTUMNWALK5~FOREST27", "30303030" #winter day
 elif val_season == "winter" and val_time == "night":
-  season_stems, season_volumes = "POLAREXPEDITION0~WINTER2~AUTUMNWALK5~FULLMOON8", "30303030"
+  season_stems, season_volumes = "POLAREXPEDITION0~WINTER2~AUTUMNWALK5~FULLMOON8", "30303030" #winter night
 elif val_season == "spring" and val_time == "day":
-  season_stems, season_volumes = "SUMMERWALK6~WILDBOARS8~SUNIKWATER9~MEADOW8", "30303030"
+  season_stems, season_volumes = "SUMMERWALK6~WILDBOARS8~SUNIKWATER9~MEADOW8", "30303030" #spring day
 elif val_season == "winter" and val_time == "night":
-  season_stems, season_volumes = "SUMMERWALK6~PALMGARDEN24~PALMGARDEN7~MEADOW8", "30303030"
+  season_stems, season_volumes = "SUMMERWALK6~PALMGARDEN24~PALMGARDEN7~MEADOW8", "30303030" #spring night
 elif val_season == "summer" and val_time == "day":
-  season_stems, season_volumes = "RPGVILLAGE1~SUMMERWALK7~PALMGARDEN8~GRASSLAND8", "30303030"
+  season_stems, season_volumes = "RPGVILLAGE1~SUMMERWALK7~PALMGARDEN8~GRASSLAND8", "30303030" #summer day
 elif val_season == "summer" and val_time == "night":
-  season_stems, season_volumes = "THUNDER3~SUMMERWALK7~AFRICA7~GRASSLAND8", "30303030"
+  season_stems, season_volumes = "THUNDER3~SUMMERWALK7~AFRICA7~GRASSLAND8", "30303030" #summer night
 elif val_season == "autumn" and val_time == "day":
-  season_stems, season_volumes = "SAILBOAT5~HARBOR5~LIVELYLAKE6~AUTUMNWALK9", "30303030"
+  season_stems, season_volumes = "SAILBOAT5~HARBOR5~LIVELYLAKE6~AUTUMNWALK9", "30303030" #autumn day
 elif val_season == "autumn" and val_time == "night":
-  season_stems, season_volumes = "SAILBOAT5~HARBOR5~FULLMOON9~AUTUMNWALK9", "30303030"
+  season_stems, season_volumes = "SAILBOAT5~HARBOR5~FULLMOON9~AUTUMNWALK9", "30303030" #autumn night
 else:
   season_stems, season_volumes = "ERROR", "ERROR"
 
 if (val_wind == "still" or (val_weather == "cloudy" or val_weather == "clear")) and val_season == "winter":
-  ambiance_stems, ambiance_volumes = "~SLEDDOGS7~SLEDDOGS7~SLEDDOGS7", "303030"
+  ambiance_stems, ambiance_volumes = "~SLEDDOGS7~SLEDDOGS7~SLEDDOGS7", "303030" #winter ambiance
 elif (val_wind == "still" or (val_weather == "cloudy" or val_weather == "clear")) and val_season == "spring":
-  ambiance_stems, ambiance_volumes = "~FOREST8~FOREST8~FOREST8", "303030"
+  ambiance_stems, ambiance_volumes = "~FOREST8~FOREST8~FOREST8", "303030" #spring ambiance
 elif (val_wind == "still" or (val_weather == "cloudy" or val_weather == "clear")) and val_season == "summer":
-  ambiance_stems, ambiance_volumes = "~JAPANGARDEN3~JAPANGARDEN3~JAPANGARDEN3", "303030"
+  ambiance_stems, ambiance_volumes = "~JAPANGARDEN3~JAPANGARDEN3~JAPANGARDEN3", "303030" #summer ambiance
 elif (val_wind == "still" or (val_weather == "cloudy" or val_weather == "clear")) and val_season == "autumn":
-  ambiance_stems, ambiance_volumes = "~ELEMENTS1~ELEMENTS1~ELEMENTS1", "303030"
+  ambiance_stems, ambiance_volumes = "~ELEMENTS1~ELEMENTS1~ELEMENTS1", "303030" #autumn ambiance
 else:
   ambiance_stems, ambiance_volumes = "", ""
 
 if (val_wind == "still" and (val_weather == "cloudy" or val_weather == "clear")) and val_season == "winter":
-  music_stems, music_volumes = "~TORLEY21~TUNEDCAVE5~CHAPELVOICES7", "303030"
+  music_stems, music_volumes = "~TORLEY21~TUNEDCAVE5~CHAPELVOICES7", "303030" #winter music
 elif (val_wind == "still" and (val_weather == "cloudy" or val_weather == "clear")) and val_season == "spring":
-  music_stems, music_volumes = "~RHODES8~PANFLUTE8~PIANO9", "303030"
+  music_stems, music_volumes = "~RHODES8~PANFLUTE8~PIANO9", "303030" #spring music
 elif (val_wind == "still" and (val_weather == "cloudy" or val_weather == "clear")) and val_season == "summer":
-  music_stems, music_volumes = "~ANAMNESIS1~ELGREY3~CADELLI4", "303030"
+  music_stems, music_volumes = "~ANAMNESIS1~ELGREY3~CADELLI4", "303030" #summer music
 elif (val_wind == "still" and (val_weather == "cloudy" or val_weather == "clear")) and val_season == "autumn":
-  music_stems, music_volumes = "~CIRCULAR2~RAVVAST2~CANYON3", "303030"
+  music_stems, music_volumes = "~CIRCULAR2~RAVVAST2~CANYON3", "303030" #autumn music
 else:
   music_stems, music_volumes = "", ""
 
