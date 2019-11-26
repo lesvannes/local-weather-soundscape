@@ -1,0 +1,5 @@
+#This is a list of features I think it would be cool to add to this program:
+
+#Use natural language location input and translate it into the airport code internally.
+#Allow users to input their own stem mixes, to create their own custom generator. Would maybe require a GUI.
+#Automatically refresh the URL whenever a change in weather is detected; make a soundscape that evolves without user input? You're listening and when it starts raining outside, it starts raining in the soundscape, without you doing anything?
