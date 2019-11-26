@@ -1,0 +1,140 @@
+# Collects unique information about the user that will be used to generate their custom weather soundscape.
+
+name = input("What should I call you?\n>\n> ")
+print(">")
+while True:
+  try:
+    lookup_code = input("Where are you located? I'm a little dumb, so please share this in the form of your local airport code, which can be found at w1.weather.gov/xml/current_obs/.\n>\n> ")
+    lookup_code = lookup_code.upper()
+    weather_source = "https://w1.weather.gov/xml/current_obs/" + lookup_code + ".xml"
+    from xml.dom import minidom
+    from urllib.request import urlopen
+    dom = minidom.parse(urlopen(weather_source))
+  except:
+    print(">\nSorry, I don't know where that is. Try again?\n>")
+    continue
+  else:
+    break
+print(">")
+
+# Retrives the user's local weather from NOAA and translates it into the variables used by the rest of the program.
+
+int_season = dom.getElementsByTagName("observation_time_rfc822")[0]
+int_season = str(int_season.firstChild.data)
+int_season = (int_season[8:11])
+if int_season in ("Dec", "Jan", "Feb"):
+  val_season = "winter"
+elif int_season in ("Mar", "Apr", "May"):
+  val_season = "spring"
+elif int_season in ("Jun", "Jul", "Aug"):
+  val_season = "summer"
+elif int_season in ("Sep", "Oct", "Nov"):
+  val_season = "autumn"
+else:
+ val_season = "ERROR"
+
+int_time = dom.getElementsByTagName("observation_time_rfc822")[0]
+int_time = str(int_time.firstChild.data)
+int_time = int(int_time[17:19])
+if int_time >= 6 and int_time < 18:
+  val_time = "day"
+else:
+ val_time = "night"
+
+int_temp = dom.getElementsByTagName("temp_f")[0]
+int_temp = float(int_temp.firstChild.data)
+if int_temp > 50:
+  val_temp = "warm"
+else:
+  val_temp = "chilly"
+
+int_wind = dom.getElementsByTagName("wind_mph")[0]
+int_wind = float(int_wind.firstChild.data)
+if int_wind >= 20:
+  val_wind = "windy"
+else:
+  val_wind = "still"
+
+int_weather = dom.getElementsByTagName("weather")[0]
+int_weather = str(int_weather.firstChild.data)
+if int_weather in ("Ice", "Hail", "Snow", "Freezing"):
+  val_weather = "snowy"
+elif int_weather in ("Rain", "Drizzle", "Showers", "Thunderstorm"):
+  val_weather = "rainy"
+elif int_weather in ("Cloudy", "Overcast", "Fog", "Smoke", "Dust", "Sand", "Haze", "Funnel", "Tornado"):
+  val_weather = "cloudy"
+else:
+  val_weather = "clear"
+
+location = dom.getElementsByTagName("location")[0]
+location = str(location.firstChild.data)
+
+# Matches the corresponding sounds to the local weather collected above, then concatenates that mix of sounds into a single URL.
+
+if val_wind == "windy" and val_temp == "warm":
+  wind_stems, wind_volumes = "~BERBER0~JAPANGARDEN1~MEADOW8", "303030"
+elif val_wind == "windy" and val_temp == "chilly":
+  wind_stems, wind_volumes = "~SLEDDOGS0~FERRYBOAT3~SAILBOAT4", "303030"
+else:
+  wind_stems, wind_volumes = "", ""
+
+if val_weather == "snowy":
+  precip_stems, precip_volumes = "~FOREST9~WOLVES9~POLAREXPEDITION9", "303030"
+elif val_weather == "rainy" and val_temp == "warm":
+  precip_stems, precip_volumes = "~THUNDER5~RAINYRIVERBANK5~RAIN35", "303030"
+elif val_weather == "rainy" and val_temp == "chilly":
+  precip_stems, precip_volumes = "~SAILBOAT20~ATSEA8~AUTUMNWALK8", "303030"
+else:
+  precip_stems, precip_volumes = "", ""
+
+if val_season == "winter" and val_time == "day":
+  season_stems, season_volumes = "POLAREXPEDITION0~WINTER2~AUTUMNWALK5~FOREST27", "30303030"
+elif val_season == "winter" and val_time == "night":
+  season_stems, season_volumes = "POLAREXPEDITION0~WINTER2~AUTUMNWALK5~FULLMOON8", "30303030"
+elif val_season == "spring" and val_time == "day":
+  season_stems, season_volumes = "SUMMERWALK6~WILDBOARS8~SUNIKWATER9~MEADOW8", "30303030"
+elif val_season == "winter" and val_time == "night":
+  season_stems, season_volumes = "SUMMERWALK6~PALMGARDEN24~PALMGARDEN7~MEADOW8", "30303030"
+elif val_season == "summer" and val_time == "day":
+  season_stems, season_volumes = "RPGVILLAGE1~SUMMERWALK7~PALMGARDEN8~GRASSLAND8", "30303030"
+elif val_season == "summer" and val_time == "night":
+  season_stems, season_volumes = "THUNDER3~SUMMERWALK7~AFRICA7~GRASSLAND8", "30303030"
+elif val_season == "autumn" and val_time == "day":
+  season_stems, season_volumes = "SAILBOAT5~HARBOR5~LIVELYLAKE6~AUTUMNWALK9", "30303030"
+elif val_season == "autumn" and val_time == "night":
+  season_stems, season_volumes = "SAILBOAT5~HARBOR5~FULLMOON9~AUTUMNWALK9", "30303030"
+else:
+  season_stems, season_volumes = "ERROR", "ERROR"
+
+if (val_wind == "still" or (val_weather == "cloudy" or val_weather == "clear")) and val_season == "winter":
+  ambiance_stems, ambiance_volumes = "~SLEDDOGS7~SLEDDOGS7~SLEDDOGS7", "303030"
+elif (val_wind == "still" or (val_weather == "cloudy" or val_weather == "clear")) and val_season == "spring":
+  ambiance_stems, ambiance_volumes = "~FOREST8~FOREST8~FOREST8", "303030"
+elif (val_wind == "still" or (val_weather == "cloudy" or val_weather == "clear")) and val_season == "summer":
+  ambiance_stems, ambiance_volumes = "~JAPANGARDEN3~JAPANGARDEN3~JAPANGARDEN3", "303030"
+elif (val_wind == "still" or (val_weather == "cloudy" or val_weather == "clear")) and val_season == "autumn":
+  ambiance_stems, ambiance_volumes = "~ELEMENTS1~ELEMENTS1~ELEMENTS1", "303030"
+else:
+  ambiance_stems, ambiance_volumes = "", ""
+
+if (val_wind == "still" and (val_weather == "cloudy" or val_weather == "clear")) and val_season == "winter":
+  music_stems, music_volumes = "~TORLEY21~TUNEDCAVE5~CHAPELVOICES7", "303030"
+elif (val_wind == "still" and (val_weather == "cloudy" or val_weather == "clear")) and val_season == "spring":
+  music_stems, music_volumes = "~RHODES8~PANFLUTE8~PIANO9", "303030"
+elif (val_wind == "still" and (val_weather == "cloudy" or val_weather == "clear")) and val_season == "summer":
+  music_stems, music_volumes = "~ANAMNESIS1~ELGREY3~CADELLI4", "303030"
+elif (val_wind == "still" and (val_weather == "cloudy" or val_weather == "clear")) and val_season == "autumn":
+  music_stems, music_volumes = "~CIRCULAR2~RAVVAST2~CANYON3", "303030"
+else:
+  music_stems, music_volumes = "", ""
+
+soundscape_url = "https://myNoise.net/NoiseMachines/custom.php?l=" + season_volumes + wind_volumes + precip_volumes + ambiance_volumes + music_volumes + "&a=2&am=3&m=" + season_stems + wind_stems + precip_stems + ambiance_stems + music_stems + "&title=" + name + "'s Local Weather"
+
+# Presents the user with a report of their local weather and a link to the custom-mixed soundscape that reflects that weather.
+
+print("Hello, " + name + ". It is a " + val_wind + ", " + val_weather + ", " + val_temp + " " + val_season + " " + val_time + " at " + location + ".")
+print(">")
+print("Your local, customized weather soundscape can be found here: " + soundscape_url + ".")
+input(">\nPress enter to open this soundscape in a new tab.")
+import webbrowser
+webbrowser.open_new_tab(soundscape_url)
